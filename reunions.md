@@ -1,0 +1,1 @@
+08/03 : Premier contact avec Adrien Bocquet, explication des différents projets proposés, ajout d'un projet de log des températures des frigos des labos de l'ENS.

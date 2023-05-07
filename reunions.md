@@ -1,1 +1,2 @@
 08/03 : Premier contact avec Adrien Bocquet, explication des différents projets proposés, ajout d'un projet de log des températures des frigos des labos de l'ENS.
+13/04 : Visite des labos de Alice & Bob à l'ENS (Ulm Physique), visualisation des puces et des frigos qui les contrôlent, ainsi que de la machine sur laquelle le fridgewatcher actuel est implanté. Visualisation de son fonctionnement. Quelques explications sur des points de Rust que nous n'avions pas bien compris. Nous partons sur ce projet FridgeWatcher.

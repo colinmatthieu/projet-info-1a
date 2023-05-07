@@ -20,7 +20,7 @@ class EchoHttpHandlerWithPOST(BaseHTTPRequestHandler):
     self.end_headers()
     token = self.data[name]
     self.wfile.write(
-      f"<html><body>Salut {name} from {client_addr}\n votre code: {token}\n<h2>Nous sommes: Arthur Louvrier, Zacharie Outbib, Nermine Horry</h2></body></html>"
+      f"<html><body>Salut {name} from {client_addr}\n votre code: {token}\n<h2>Nous sommes:des gens</h2></body></html>"
       .encode())
 
   def do_POST(self):

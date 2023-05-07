@@ -16,7 +16,7 @@ async fn main()
     /////////////FILE WATCHER///////////////////////////
     let (sender, receiver) = channel();
     // Create a watcher object, delivering debounced events. The notification back-end is selected based on the platform.
-    let mut watcher = watcher(sender, Duration::from_secs(10)).unwrap();
+    let mut watcher = watcher(sender, Duration::from_secs(3)).unwrap();
     // Add a path to be watched. All files and directories at that path and below will be monitored for changes.
     watcher.watch(dataPath, RecursiveMode::Recursive).unwrap();
 

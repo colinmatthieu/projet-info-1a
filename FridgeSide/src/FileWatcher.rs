@@ -1,18 +1,9 @@
-#![allow(non_snake_case)]
-
-use std::path::PathBuf;
-
 use notify::{Watcher, RecursiveMode, watcher};
 use std::sync::mpsc::channel;
 use std::time::Duration;
 
-fn main() 
-{
-    let mut dataPath = PathBuf::from(env!("CARGO_MANIFEST_DIR"));
-    dataPath.push("../TestData");
-    println!("Data path: {}", dataPath.display());
-    
-    /////////////FILE WATCHER///////////////////////////
+fn main() {
+    // Create a channel to receive the events.
     let (sender, receiver) = channel();
 
     // Create a watcher object, delivering debounced events.
@@ -21,11 +12,11 @@ fn main()
 
     // Add a path to be watched. All files and directories at that path and
     // below will be monitored for changes.
-    watcher.watch(dataPath, RecursiveMode::Recursive).unwrap();
+    watcher.watch("../../TestData/21-01-01", RecursiveMode::Recursive).unwrap();
 
     loop {
         match receiver.recv() {
-           Ok(event) => println!("modif: {:?}", event),
+           Ok(event) => println!("{:?}", event),
            Err(e) => println!("watch error: {:?}", e),
         }
     }

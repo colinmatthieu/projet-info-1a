@@ -2,3 +2,4 @@
 **/target
 **/BDD
 TestData/**/generated.txt
+ServerSide/generated.html

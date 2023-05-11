@@ -6,6 +6,7 @@ from influxdb_client.client.write_api import SYNCHRONOUS
 
 #token = os.environ.get("INFLUXDB_TOKEN") #export INFLUXDB_TOKEN=QOcPWIZWqhpCwiOMTPxLvK4X-xOIqRzhK3wbBnhYHFG1nTnjcLHzpCPiI2hfwI2S92p8oqzn_LZzefNoZIqLJw==
 token="QOcPWIZWqhpCwiOMTPxLvK4X-xOIqRzhK3wbBnhYHFG1nTnjcLHzpCPiI2hfwI2S92p8oqzn_LZzefNoZIqLJw=="
+token="YG-aQCvRzmwe1V5cBvopZ0lDVYY8aBq9tzaHg4eT-UEtX1P51Md35obfGdFcXx99f97GYaTP-VaeJbO5SjN5pg=="
 org = "FrigoQ"
 url = "http://localhost:8086"
 bucket="Frigo1"

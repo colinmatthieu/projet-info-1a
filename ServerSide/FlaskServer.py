@@ -1,7 +1,8 @@
-from flask import Flask, redirect, url_for, request
+from flask import Flask, redirect, url_for, request, make_response, send_file
 app = Flask(__name__)
 
 import influxdb_client, os, time
+import io
 from influxdb_client import InfluxDBClient, Point, WritePrecision
 from influxdb_client.client.write_api import SYNCHRONOUS
 
@@ -86,9 +87,14 @@ def getData(source):
     return open("template.html",encoding="utf-8").read()
     #return open("BDD/"+source).read()
     
-@app.route("/getGenerated")
-def generated():
-    return open("test.html",encoding="utf-8").read()
+@app.route("/getGenerated/<file>")
+def generated(file):
+    return open(file,encoding="utf-8").read()
+
+@app.route("/images/<file>")
+def images(file):
+    print("dfvfdvdvdv", file)
+    return send_file(file,mimetype='image/png')
 
 if __name__ == '__main__':
     app.run(debug = True)

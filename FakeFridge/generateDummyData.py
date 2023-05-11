@@ -21,6 +21,7 @@ def launchFridge():
         data=""
         for i in range(randint(1,5)):#generate random number of line
             data+=genDataLine()
+            sleep(1)
         print("Generated lines:")
         print(data)
         f=open(DATA_PATH+"/21-01-01/generated.txt","a")

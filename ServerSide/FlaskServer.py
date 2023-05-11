@@ -10,11 +10,12 @@ token="QOcPWIZWqhpCwiOMTPxLvK4X-xOIqRzhK3wbBnhYHFG1nTnjcLHzpCPiI2hfwI2S92p8oqzn_
 org = "FrigoQ"
 url = "http://localhost:8086"
 
-write_client = influxdb_client.InfluxDBClient(url=url, token=token, org=org)
+db_client = influxdb_client.InfluxDBClient(url=url, token=token, org=org)
 
 bucket="Frigo1"
 
-write_api = write_client.write_api(write_options=SYNCHRONOUS)
+write_api = db_client.write_api(write_options=SYNCHRONOUS)
+query_api = db_client.query_api()
 
 from datetime import datetime
 import pytz
@@ -59,10 +60,36 @@ def sendData():
     f.close()"""
     return redirect(url_for('success',name = user))
 
+import plotly.graph_objects as go
+from plotly.subplots import make_subplots
 @app.route("/getData/<source>")
 def getData(source):
-    return open("BDD/"+source).read()
+    query = """from(bucket: "Frigo1")
+                |> range(start: today())
+                |> filter(fn: (r) => r["_measurement"] == "ens")
+                |> filter(fn: (r) => r["_field"] == "temp1")"""
+
+    df = query_api.query_data_frame(org=org, query=query)
+    print(df)
+    fig = make_subplots()
+    fig.add_trace(
+        go.Scatter(
+            mode="lines",
+            x=df["_time"],
+            y=df["_value"],
+            name="Température en K",
+            line=dict(color="blue", width=2),
+        ))
+    #fig.show()
+    fig.write_html("test.html")
+
+    return open("template.html",encoding="utf-8").read()
+    #return open("BDD/"+source).read()
     
+@app.route("/getGenerated")
+def generated():
+    return open("test.html",encoding="utf-8").read()
+
 if __name__ == '__main__':
     app.run(debug = True)
     

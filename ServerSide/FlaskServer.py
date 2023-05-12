@@ -34,6 +34,13 @@ def processLine(line):
     local = pytz.timezone("Europe/Paris")
     local_dt = local.localize(date, is_dst=None)
     utc_dt = local_dt.astimezone(pytz.utc)
+    
+    if float(v) >= 10.5698e-9:
+        import requests
+        webhook = "https://hooks.slack.com/services/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"
+        message = {"text": "Seuil de temp dépassé !"}
+        x = requests.post(webhook, json = message)
+        print(x)
 
     p = influxdb_client.Point(measurement).field("temp1", float(v)).time(utc_dt.isoformat())
     write_api.write(bucket=bucket, org=org, record=p)

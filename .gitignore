@@ -6,3 +6,4 @@ ServerSide/generated*
 config
 data
 ServerSide/influxDB_volume
+FridgeSide/Cargo.lock

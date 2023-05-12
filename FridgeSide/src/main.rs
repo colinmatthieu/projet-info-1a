@@ -49,9 +49,13 @@ error_chain! {
         HttpRequest(reqwest::Error);
     }
 }
-
- fn process(filePath:PathBuf)->Result<()>{
-    //TODO: check if this is a file (not a folder)
+use std::fs::metadata;
+fn process(filePath:PathBuf)->Result<()>{
+    let md = metadata(&filePath).unwrap();
+    if md.is_dir() {
+        println!("Ignoring directory: {:?}", filePath);
+        return Ok(())
+    }
     let contents = fs::read_to_string(&filePath)
         .expect("Should have been able to read the file");
         

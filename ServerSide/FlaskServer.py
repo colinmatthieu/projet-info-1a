@@ -4,13 +4,17 @@ app = Flask(__name__)
 import influxdb_client, os
 from influxdb_client.client.write_api import SYNCHRONOUS
 
-#token = os.environ.get("INFLUXDB_TOKEN") #export INFLUXDB_TOKEN=QOcPWIZWqhpCwiOMTPxLvK4X-xOIqRzhK3wbBnhYHFG1nTnjcLHzpCPiI2hfwI2S92p8oqzn_LZzefNoZIqLJw==
-token="QOcPWIZWqhpCwiOMTPxLvK4X-xOIqRzhK3wbBnhYHFG1nTnjcLHzpCPiI2hfwI2S92p8oqzn_LZzefNoZIqLJw=="
-token="YG-aQCvRzmwe1V5cBvopZ0lDVYY8aBq9tzaHg4eT-UEtX1P51Md35obfGdFcXx99f97GYaTP-VaeJbO5SjN5pg=="
+import configparser
+config = configparser.ConfigParser()
+config.read("influxDB_volume/config/influx-configs")
+
+token=config["default"]["token"][1:-1] #WE REMOVE THE QUOTES
+
 org = "FrigoQ"
 url = "http://localhost:8086"
 bucket="Frigo1"
 
+print(token)
 db_client = influxdb_client.InfluxDBClient(url=url, token=token, org=org)
 
 write_api = db_client.write_api(write_options=SYNCHRONOUS)
@@ -38,9 +42,10 @@ def processLine(line):
 @app.route('/sendData',methods = ['POST'])
 def sendData():
     for line in request.json["contents"].splitlines():
+        #print(line)
         processLine(line)
     
-    return redirect(url_for('getData',source = "d"))
+    return "no" #redirect(url_for('getData',source = "d"))
 
 
 @app.route("/getData/<source>")
@@ -51,6 +56,8 @@ def getData(source): #the source parameter is now ignored
                 |> filter(fn: (r) => r["_field"] == "temp1")"""
 
     df = query_api.query_data_frame(org=org, query=query)
+    if len(df) == 0:
+        return "NO DATA"
 
     import plotly.graph_objects as go
     from plotly.subplots import make_subplots

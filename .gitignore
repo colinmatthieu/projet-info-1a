@@ -5,3 +5,4 @@ TestData/**/generated.txt
 ServerSide/generated.html
 config
 data
+ServerSide/influxDB_volume

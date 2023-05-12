@@ -50,6 +50,7 @@ error_chain! {
 }
 
 async fn process(filePath:PathBuf)->Result<()>{
+    //TODO: check if this is a file (not a folder)
     let contents = fs::read_to_string(&filePath)
         .expect("Should have been able to read the file");
         

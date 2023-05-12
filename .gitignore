@@ -2,7 +2,7 @@
 **/target
 **/BDD
 TestData/**/generated.txt
-ServerSide/generated.html
+ServerSide/generated*
 config
 data
 ServerSide/influxDB_volume

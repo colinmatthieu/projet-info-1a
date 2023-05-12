@@ -45,14 +45,23 @@ def sendData():
         #print(line)
         processLine(line)
     
-    return "no" #redirect(url_for('getData',source = "d"))
+    return "no" 
 
 
-@app.route("/getData/<source>")
-def getData(source): #the source parameter is now ignored
-    query = """import "date"
+@app.route("/dashboard")
+def dashboard(): #the source parameter is now ignored
+    return open("template.html",encoding="utf-8").read()
+    
+@app.route("/genViz/<viz>.html")
+def genViz(viz):
+    rangeParam = "range(start: today())"
+    if viz == "today":
+        rangeParam = "range(start: date.sub(from: today(), d:1y))"
+    elif viz == "realFridge":
+        rangeParam = "range(start: date.sub(from: today(), d:3y), stop: date.sub(from: today(), d:1y))"
+    query = f"""import "date"
                 from(bucket: "Frigo1")
-                |> range(start: date.sub(from: today(), d:1y))
+                |> {rangeParam}
                 |> filter(fn: (r) => r["_measurement"] == "ens")
                 |> filter(fn: (r) => r["_field"] == "temp1")"""
 
@@ -71,9 +80,9 @@ def getData(source): #the source parameter is now ignored
             name="Température en K",
             line=dict(color="blue", width=2),
         ))
-    fig.write_html("generated.html")
-
-    return open("template.html",encoding="utf-8").read()
+    generated="generated"+viz+".html"
+    fig.write_html(generated)
+    return open(generated,encoding="utf-8").read()
     
 @app.route("/getGenerated/<file>") #Used to return the generated html (embedded in the template.html) (this might evolve later)
 def generated(file):

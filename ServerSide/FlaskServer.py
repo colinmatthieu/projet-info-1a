@@ -84,13 +84,17 @@ def genViz(viz):
     fig.write_html(generated)
     return open(generated,encoding="utf-8").read()
     
-@app.route("/getGenerated/<file>") #Used to return the generated html (embedded in the template.html) (this might evolve later)
+@app.route("/<file>") #Used to return the generated html (embedded in the template.html) (this might evolve later)
 def generated(file):
-    return open(file,encoding="utf-8").read()
+    ext=file.split(".")[-1]
+    type = "text/"+ext
+    return send_file(file,mimetype=type)
 
 @app.route("/images/<file>") #Used to send the favicon
 def images(file):
-    return send_file(file,mimetype='image/png')
+    ext=file.split(".")[-1]
+    type = "image/"+ext
+    return send_file(file,mimetype=type)
 
 if __name__ == '__main__':
     app.run(debug = True)

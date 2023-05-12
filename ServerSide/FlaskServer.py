@@ -50,8 +50,9 @@ def sendData():
 
 @app.route("/getData/<source>")
 def getData(source): #the source parameter is now ignored
-    query = """from(bucket: "Frigo1")
-                |> range(start: today())
+    query = """import "date"
+                from(bucket: "Frigo1")
+                |> range(start: date.sub(from: today(), d:1y))
                 |> filter(fn: (r) => r["_measurement"] == "ens")
                 |> filter(fn: (r) => r["_field"] == "temp1")"""
 

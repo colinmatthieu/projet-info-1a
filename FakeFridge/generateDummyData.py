@@ -13,7 +13,7 @@ def genDataLine():
     current_date = now.strftime("%d-%m-%y")
     contents.append(current_date)
     contents.append(current_time)
-    contents.append(str(uniform(-3.6,5.8)))
+    contents.append(str(uniform(10.54e-9,+10.57e-9)))
     return ",".join(contents)+"\n"
 def launchFridge():
     while True:

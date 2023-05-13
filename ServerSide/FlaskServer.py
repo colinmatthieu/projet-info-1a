@@ -40,7 +40,7 @@ def processLine(line):
         webhook = "https://hooks.slack.com/services/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"
         message = {"text": "Seuil de temp dépassé !"}
         x = requests.post(webhook, json = message)
-        print(x)
+        print("Threshold triggered !", x)
 
     p = influxdb_client.Point(measurement).field("temp1", float(v)).time(utc_dt.isoformat())
     write_api.write(bucket=bucket, org=org, record=p)

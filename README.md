@@ -1,6 +1,11 @@
 # Fridger (todo: trouver nom)
 Application de suivi et de notification de l'état des frigos de l'ens
 
+## Requirements
+Installer **influxdb-lient, flask et plotly** (avec pip install)
+
+Sur linux: `chmod +x launch.sh linuxSetupDocker.sh` ("éventuellement a faire avec sudo)
+
 ## Setup avec script:
 0) Lancer winSetupDocker.bat ou linuxSetupDocker.sh seulement pour initialiser l'image docker, cela lancera automatiquement le script launch
 1) Quand le container docker a déjà été initialisé, lancer le script launch (bat ou sh selon l'os)
@@ -18,4 +23,17 @@ Application de suivi et de notification de l'état des frigos de l'ens
 
 ## Utilisation
 1) Rien faire (attendre que des données soient update par les frigos)
-2) Aller sur localhost:5000/getData/d pour voir l'historique des données de température de la journée
+2) Aller sur localhost:5000/dashboard pour voir l'historique des données de température de la journée
+
+## TODO
+- [ ] Améliorer ce readme
+- [ ] Ajouter de la doc
+- [x] Faire un script de nettoyage de la BD 
+- [ ] Refactorer le code 
+- [ ] Placer les éléments de configuration du serveur dans un fichier de configuration à part (qui devrait être lu par le watcher et le serveur au moins)
+- [ ] Ajouter un protocole de communication watcher/serveur pour envoyer uniquement les lignes nécessaires
+- [ ] Optimiser l'envoie des données du serveur a influxDB
+- [ ] Gérer les différents types de données/mesures (prendre en compte que les données sont placées dans des dossiers journaliers)
+- [ ] Détecter la non réception régulière des données pour envoyer une notif slack
+- [ ] Designer et coder l'interface web 
+- [ ] Débugguer le script de lancement sur Linux (ouvre qu'un seul terminal)

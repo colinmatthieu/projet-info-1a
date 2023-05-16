@@ -1,5 +1,9 @@
 # Added by cargo
 **/target
 **/BDD
-**/21-01-01/
-**/TestData
+TestData/**/generated.txt
+ServerSide/generated*
+config
+data
+ServerSide/influxDB_volume
+FridgeSide/Cargo.lock

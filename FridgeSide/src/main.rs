@@ -5,6 +5,7 @@ use std::path::PathBuf;
 use notify::{Watcher, RecursiveMode, watcher, DebouncedEvent};
 use std::sync::mpsc::channel;
 use std::time::Duration;
+use std::thread;
 
 #[tokio::main]
 async fn main() 
@@ -26,7 +27,7 @@ async fn main()
             println!("modif: {:?}", event);
             if let DebouncedEvent::Write(p) = event{
                 println!("Modified file{:?}",p);
-                process(p).await;
+                thread::spawn(|| {process(p);});
             }
             
            },
@@ -39,7 +40,7 @@ use error_chain::error_chain;
 //use serde::Deserialize;
 use serde_json::json;
 use std::env;
-use reqwest::Client;
+use reqwest::blocking::Client;
 use std::fs;
 
 error_chain! {
@@ -48,8 +49,13 @@ error_chain! {
         HttpRequest(reqwest::Error);
     }
 }
-
-async fn process(filePath:PathBuf)->Result<()>{
+use std::fs::metadata;
+fn process(filePath:PathBuf)->Result<()>{
+    let md = metadata(&filePath).unwrap();
+    if md.is_dir() {
+        println!("Ignoring directory: {:?}", filePath);
+        return Ok(())
+    }
     let contents = fs::read_to_string(&filePath)
         .expect("Should have been able to read the file");
         
@@ -69,7 +75,7 @@ async fn process(filePath:PathBuf)->Result<()>{
         .post(request_url)
         //.basic_auth(gh_user.clone(), Some(gh_pass.clone())) //todo: handle auth
         .json(&data)
-        .send().await?;
+        .send();//.await?;
     println!("sent !!");
 
     //let result = response.json().await?;

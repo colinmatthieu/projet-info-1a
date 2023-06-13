@@ -1,4 +1,5 @@
 from flask import Flask, redirect, url_for, request, send_file
+from flask_sqlalchemy import SQLAlchemy
 app = Flask(__name__)
 
 import influxdb_client, os
@@ -57,7 +58,7 @@ def sendData():
 
 @app.route("/dashboard")
 def dashboard(): #the source parameter is now ignored
-    return open("template.html",encoding="utf-8").read()
+    return open("templates/dashboard.html",encoding="utf-8").read()
     
 @app.route("/genViz/<viz>.html")
 def genViz(viz):
@@ -90,7 +91,7 @@ def genViz(viz):
     generated="generated"+viz+".html"
     fig.write_html(generated)
     return open(generated,encoding="utf-8").read()
-    
+'''  
 @app.route("/<file>") #Used to return the generated html (embedded in the template.html) (this might evolve later)
 def generated(file):
     ext=file.split(".")[-1]
@@ -102,6 +103,7 @@ def images(file):
     ext=file.split(".")[-1]
     type = "image/"+ext
     return send_file(file,mimetype=type)
+'''
 
 if __name__ == '__main__':
     app.run(debug = True)

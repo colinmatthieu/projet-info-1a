@@ -37,3 +37,5 @@ Sur linux: `chmod +x launch.sh linuxSetupDocker.sh` ("éventuellement a faire av
 - [ ] Détecter la non réception régulière des données pour envoyer une notif slack
 - [ ] Designer et coder l'interface web 
 - [ ] Débugguer le script de lancement sur Linux (ouvre qu'un seul terminal)
+- [ ] Ajouter un système de comptes pour les différentes équipes
+- [ ] Créer un script/Dockerfile pour la procédure de déploiement de tous les services (InfluxDB, comptes, serveur Flask)

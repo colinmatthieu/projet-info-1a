@@ -1,6 +1,23 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
+import influxdb_client
+from influxdb_client.client.write_api import SYNCHRONOUS
+
+import configparser
+config = configparser.ConfigParser()
+config.read("influxDB_volume/config/influx-configs")
+
+token=config["default"]["token"][1:-1] #WE REMOVE THE QUOTES
+
+org = "FrigoQ"
+url = "http://localhost:8086"
+bucket="Frigo1"
+print(token)
+db_client = influxdb_client.InfluxDBClient(url=url, token=token, org=org)
+
+write_api = db_client.write_api(write_options=SYNCHRONOUS)
+query_api = db_client.query_api()
 
 db = SQLAlchemy()
 
@@ -29,5 +46,9 @@ def create_app():
     #blueprint for the rest
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
+
+    #blueprint for the InfluxDB database
+    from .influx import influx as influx_blueprint
+    app.register_blueprint(influx_blueprint)
 
     return app

@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, current_app, request, send_file
+from flask import Blueprint, render_template, current_app, request, send_file, redirect
 from flask_login import login_required, current_user
 from . import db_client, write_api, query_api, bucket, org, token
 import influxdb_client
@@ -72,7 +72,16 @@ def genViz(viz):
             y=df["_value"],
             name="Température en K",
             line=dict(color="blue", width=2),
+            connectgaps=False
         ))
     generated="generated"+viz+".html"
     fig.write_html(generated)
     return open(generated,encoding="utf-8").read() # render_template ?
+
+@influx.route('/visualize')
+def render_visualization():
+    return render_template('visualization.html')
+
+@influx.route('/grafanaLink')
+def render_grafana_link():
+    return redirect("http://localhost:3000/d-solo/null?orgId=1&from=1609455651000&to=1686666994000&panelId=123124")

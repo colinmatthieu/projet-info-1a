@@ -13,6 +13,15 @@ Sur linux: `chmod +x launch.sh linuxSetupDocker.sh` ("éventuellement a faire av
 
 **Info importante: si on détruit l'image docker, penser a supprimer le contenu du dossier influxDB_volume avant de relancer le script winSetupDocker (il attend automatiquement que le fichier de config soit créé avant de lancer launch)**
 
+## Setup Grafana
+Mêmes manipulations que pour le reste, mais il faut en plus
+- créer un réseau Docker : <br>`docker network create nom-du-reseau`
+- lancer un container depuis l'image Grafana : <br>`docker run -d --name=grafana -p 3000:3000 grafana/grafana-oss:10.0.0` pour la version 10.0.0 par exemple
+- Attacher les containers InfluxDB et Grafana au réseau Docker pour qu'ils puissent communiquer entre eux : <br>
+`docker network connect nom-du-reseau grafana`
+<br>
+`docker network connect nom-du-reseau FrigoDB`
+
 
 ## Setup (ancien)
 1) Installer docker et créer l'image influxDB: lancer le script setupDocker.sh (ou juste la commande) attendre quelques secondes puis aller dans le dossier config créé et recopier le tocken d'identification dans le code python du serveur
@@ -29,7 +38,7 @@ Sur linux: `chmod +x launch.sh linuxSetupDocker.sh` ("éventuellement a faire av
 - [ ] Améliorer ce readme
 - [ ] Ajouter de la doc
 - [x] Faire un script de nettoyage de la BD 
-- [ ] Refactorer le code 
+- [ ] Refactorer le code
 - [ ] Placer les éléments de configuration du serveur dans un fichier de configuration à part (qui devrait être lu par le watcher et le serveur au moins)
 - [ ] Ajouter un protocole de communication watcher/serveur pour envoyer uniquement les lignes nécessaires
 - [ ] Optimiser l'envoie des données du serveur a influxDB

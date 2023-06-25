@@ -52,7 +52,7 @@ def sendData():
         #print(line)
         processLine(line)
     
-    return "no" 
+    return "done" #please do not redirect to the dashboard
 
 
 @app.route("/dashboard")

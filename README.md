@@ -2,7 +2,7 @@
 Application de suivi et de notification de l'état des frigos de l'ens
 
 ## Requirements
-Installer **influxdb-lient, flask et plotly** (avec pip install)
+Installer **influxdb-lient, flask, pytz et plotly** (avec pip install)
 
 Sur linux: `chmod +x launch.sh linuxSetupDocker.sh` ("éventuellement a faire avec sudo)
 

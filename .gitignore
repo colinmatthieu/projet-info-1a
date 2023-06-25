@@ -7,3 +7,12 @@ config
 data
 ServerSide/influxDB_volume
 FridgeSide/Cargo.lock
+
+21-01-01/
+ServerSide/db.sqlite
+ServerSide/__pycache__/__init__.cpython-39.pyc
+ServerSide/__pycache__/auth.cpython-39.pyc
+ServerSide/__pycache__/influx.cpython-39.pyc
+ServerSide/__pycache__/main.cpython-39.pyc
+ServerSide/__pycache__/models.cpython-39.pyc
+ServerSide/AxumServer

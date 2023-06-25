@@ -27,13 +27,12 @@ def create_app():
     app.config['SECRET_KEY'] = "secret-key-wow"
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///../ServerSide/db.sqlite'
 
+    from .models import User
     db.init_app(app)
 
     login_manager = LoginManager()
     login_manager.login_view = 'auth.login'
     login_manager.init_app(app)
-
-    from .models import User
     
     @login_manager.user_loader
     def load_user(fridge_id):

@@ -23,13 +23,21 @@ Mêmes manipulations que pour le reste, mais il faut en plus
 <br>
 `docker network connect nom-du-reseau FrigoDB`
 
+## Pour utiliser grafanalib
+Après avoir installé grafanalib, il faut créer un fichier .env dans le dossier ServerSide/dashboard-generation et mettre à l'intérieur :
+```
+GRAFANA_API_KEY = une-clé-api-grafana-avec-droits-d-edition-préalablement-générée
+GRAFANA_SERVER = localhost:3000
+```
+
+Pour créer une clé api Grafana, il suffit de se connecter en admin puis d'aller dans l'onglet Administration, Service Accounts, créer un service account.
 
 ## Setup (ancien)
 1) Installer docker et créer l'image influxDB: lancer le script setupDocker.sh (ou juste la commande) attendre quelques secondes puis aller dans le dossier config créé et recopier le tocken d'identification dans le code python du serveur
 2) Lancer le ServerSide/FlaskServer.py (il doit être lançé depuis ce dossier !)
 3) Lancer le watcher rust: FridgeSide/main.rs
 4) Lancer le frigo de test: FakeFridge/generateDummyData.py
-   
+
 
 ## Utilisation
 1) Rien faire (attendre que des données soient update par les frigos)

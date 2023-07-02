@@ -17,3 +17,4 @@ ServerSide/__pycache__/influx.cpython-39.pyc
 ServerSide/__pycache__/main.cpython-39.pyc
 ServerSide/__pycache__/models.cpython-39.pyc
 ServerSide/AxumServer
+ServerSide/dashboard-generation/.env

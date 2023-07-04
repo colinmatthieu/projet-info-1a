@@ -1,14 +1,14 @@
 from grafanalib.core import (
-    Dashboard, TimeSeries, Target, GridPos
+    Dashboard, TimeSeries, Target, GridPos, Ae3ePlotly
 )
 from grafanalib.influxdb import InfluxDBTarget
 from grafanalib._gen import DashboardEncoder
 import json
 import requests
-from decouple import config
+from decouple import config #Used for environment variables
 
 
-with open("query.txt", 'r') as f:
+with open("query.flux", 'r') as f:
     query = f.read()
 
 dashboard = Dashboard(
@@ -22,6 +22,7 @@ dashboard = Dashboard(
         TimeSeries(
             title="Random Walk",
             dataSource='default',
+            maxDataPoints = 1000,
             targets=[
                 InfluxDBTarget(
                     datasource='FrigoQ',
@@ -29,7 +30,14 @@ dashboard = Dashboard(
                 ),
             ],
             gridPos=GridPos(h=8, w=16, x=0, y=0)
-        )
+        ),
+        #Ae3ePlotly(
+        #    title = "Plotly Panel",
+        #    dataSource = "FrigoQ",
+        #    targets = [
+        #
+        #    ]
+        #)
     ]
 ).auto_panel_ids()
 

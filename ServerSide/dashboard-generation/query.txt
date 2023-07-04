@@ -1,5 +1,0 @@
-from(bucket: "Frigo1")
-  |>range(start:-4y)
-  |>filter(fn: (r) => r._measurement == "ens")
-  |>filter(fn: (r) => r._field == "temp1")
-  |>aggregateWindow(fn: mean, every: 30d)

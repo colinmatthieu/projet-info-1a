@@ -1,0 +1,3 @@
+Trucs à faire tout le temps :
+- Quand on crée une trace, bien mettre `connectgaps: false` pour ne pas interpoler de manière débile (si on trouve un moyen de mettre un threshold, encore mieux)
+- Pour avoir un slider de temps : dans `layout`, dans les propriétés de `xaxis`, mettre `rangeslider: [v.timeRangeStart, v.timeRangeStop]` qui permet de mettre un slider entre le début de la fenêtre de temps de Grafana et la fin de la fenêtre de temps de Grafana

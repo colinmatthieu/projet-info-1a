@@ -85,16 +85,21 @@ def dashboard(): #the source parameter is now ignored
     
 @app.route("/genViz/<viz>.html")
 def genViz(viz):
+    lab = "ensParis"
+    fridge = "CH1"
+    measure = "P"
     rangeParam = "range(start: today())"
     if viz == "today":
         rangeParam = "range(start: date.sub(from: today(), d:1y))"
+        fridge = "fakeFridge1"
+        measure = "T"
     elif viz == "realFridge":
         rangeParam = "range(start: date.sub(from: today(), d:3y), stop: date.sub(from: today(), d:1y))"
     query = f"""import "date"
-                from(bucket: "Frigo1")
+                from(bucket: "{lab}")
                 |> {rangeParam}
-                |> filter(fn: (r) => r["_measurement"] == "ens")
-                |> filter(fn: (r) => r["_field"] == "temp1")"""
+                |> filter(fn: (r) => r["_measurement"] == "{fridge}")
+                |> filter(fn: (r) => r["_field"] == "{measure}")"""
 
     df = query_api.query_data_frame(org=org, query=query)
     if len(df) == 0:

@@ -1,7 +1,7 @@
 # Added by cargo
 **/target
 **/BDD
-TestData/**/generated.txt
+TestData/**/fakeFridge1 T date.txt
 ServerSide/generated*
 config
 data

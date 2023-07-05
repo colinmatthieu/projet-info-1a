@@ -1,5 +1,6 @@
 #![allow(non_snake_case)]
 
+use core::time;
 use std::path::PathBuf;
 
 use notify::{Watcher, RecursiveMode, watcher, DebouncedEvent};
@@ -59,20 +60,44 @@ fn process(filePath:PathBuf)->Result<()>{
     let contents = fs::read_to_string(&filePath)
         .expect("Should have been able to read the file");
         
+    let path = filePath.into_os_string().into_string().expect("dkvjbdf");
+    
+
+    let urlNotify = "http://localhost:5000/notifyData";
+    let notifyReq = json!({
+        "sender": "ensParis",
+        "path": path.clone()});
+    let serverResponseSync = Client::new()
+        .post(urlNotify)
+        //.basic_auth(gh_user.clone(), Some(gh_pass.clone())) //todo: handle auth
+        .json(&notifyReq)
+        .send()//.await?;
+        .expect("response from server")
+        .text();
+    //println!("Notified response: {:?}",serverResponseSync);
+    let timeThreshold = serverResponseSync.expect("correct time thrsehold from server");
+    
+    let data = if timeThreshold != "NEWDATA" {
+        cutData(&contents, &timeThreshold)
+    } else {
+        contents
+    };
+    println!("{}",data);
+    
     let data = json!({
-        "fridgeName": "arthurooo",
-        "path": filePath.into_os_string().into_string(),
-        "contents": contents,
+        "fridgeName": "arthurooo",//probably useless
+        "sender": "ensParis",
+        "path": path.clone(), //fridgeName and measurement contained here
+        "contents": data,
         "files": {
              "file1": {
              "content": r#"trucs"#
             }
         }});
-
-    let request_url = "http://localhost:5000/sendData";
+    let urlSend = "http://localhost:5000/sendData";
     println!("about to send server data");
     let _response = Client::new()
-        .post(request_url)
+        .post(urlSend)
         //.basic_auth(gh_user.clone(), Some(gh_pass.clone())) //todo: handle auth
         .json(&data)
         .send();//.await?;
@@ -81,4 +106,12 @@ fn process(filePath:PathBuf)->Result<()>{
     //let result = response.json().await?;
     
     Ok(())
+}
+
+fn cutData(contents:&String, timeCut:&String)->String{
+    String::from(String::from(contents.split(timeCut.as_str())
+        .collect::<Vec<_>>()[1])
+        .split("\n").skip(1)
+        .map(|x| String::from(x))
+        .collect::<Vec<String>>().join("\n"))
 }

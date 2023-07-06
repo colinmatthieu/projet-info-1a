@@ -40,8 +40,8 @@ def launchFridge():
     while True:
         t+=1.5
         sleep(4) # Sleep a random number of seconds (between 1 and 5)
-        for i in range(4):
-            T_data=genDataLine_T(t/(i+1) + i*542,i)
+        for i in range(3):
+            T_data=genDataLine_T(t + i*10,i)
             P_data=genDataLine_P(t/(i+1) + i*542,i)
             print("Generated lines:" + T_data + " and " + P_data)
             f_T=open(DATA_PATH+"/21-01-01/demo_T T" + str(i) + " date.txt","a")

@@ -31,13 +31,16 @@ dashboard = Dashboard(
             ],
             gridPos=GridPos(h=8, w=16, x=0, y=0)
         ),
-        #Ae3ePlotly(
+        # Ae3ePlotly(
         #    title = "Plotly Panel",
         #    dataSource = "FrigoQ",
         #    targets = [
-        #
+        #         InfluxDBTarget(
+        #             datasource='FrigoQ',
+        #             query=query
+        #         ),
         #    ]
-        #)
+        # )
     ]
 ).auto_panel_ids()
 

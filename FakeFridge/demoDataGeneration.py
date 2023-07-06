@@ -14,8 +14,8 @@ def genDataLine_T(value,i):
     current_date = now.strftime("%d-%m-%y")
     contents.append(current_date)
     contents.append(current_time)
-    value = 0.01 + np.sin(value/10)*0.005 + 0.005 * i
-    value += 0.01 * value/50
+    value = 0.01 + np.sin(value/10)*0.0025 + 0.005 * i**2
+    value += 0.015 * value/20
     value += np.random.normal(0,0.0005,1)[0]
     
     contents.append(str(value))
@@ -39,8 +39,8 @@ def launchFridge():
     t = 0
     while True:
         t+=1.5
-        sleep(4) # Sleep a random number of seconds (between 1 and 5)
-        for i in range(3):
+        sleep(3) # Sleep a random number of seconds (between 1 and 5)
+        for i in range(4):
             T_data=genDataLine_T(t + i*10,i)
             P_data=genDataLine_P(t/(i+1) + i*542,i)
             print("Generated lines:" + T_data + " and " + P_data)

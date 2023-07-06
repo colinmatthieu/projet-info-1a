@@ -1,6 +1,7 @@
 echo off
 rem docker container first
 docker container start FrigoDB
+docker container start grafana
 rem FlaskServer
 rem cd ServerSide
 start powershell -command "cd ServerSide;set FLASK_DEBUG=1;python -m flask --app . run; Read-Host"

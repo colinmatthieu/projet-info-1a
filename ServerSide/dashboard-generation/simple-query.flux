@@ -1,4 +1,3 @@
-import "math"
 
 maxDataPoints = 100
 

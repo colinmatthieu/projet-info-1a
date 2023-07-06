@@ -50,4 +50,7 @@ def create_app():
     from .influx import influx as influx_blueprint
     app.register_blueprint(influx_blueprint)
 
+    from .grafana import grafana as grafana_blueprint
+    app.register_blueprint(grafana_blueprint)
+
     return app

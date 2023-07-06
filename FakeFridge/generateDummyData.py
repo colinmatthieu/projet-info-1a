@@ -24,7 +24,7 @@ def launchFridge():
             sleep(1)
         print("Generated lines:")
         print(data)
-        f=open(DATA_PATH+"/21-01-01/generated.txt","a")
+        f=open(DATA_PATH+"/21-01-01/fakeFridge1 T date.txt","a")
         f.write(data)
         f.close()
         

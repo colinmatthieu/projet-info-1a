@@ -8,7 +8,7 @@ import requests
 from decouple import config #Used for environment variables
 
 
-with open("query.flux", 'r') as f:
+with open("simple-query.flux", 'r') as f:
     query = f.read()
 
 dashboard = Dashboard(

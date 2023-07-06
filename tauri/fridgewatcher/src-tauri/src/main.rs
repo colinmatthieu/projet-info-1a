@@ -100,7 +100,7 @@ fn process(filePath:PathBuf)->Result<()>{
 #[tauri::command]
 fn start_tauri_logger() {
     println!("In tauri logger");
-    //start_logger();
+    start_logger();
 }
 
 fn main() {

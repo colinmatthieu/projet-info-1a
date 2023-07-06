@@ -12,12 +12,13 @@ token=config["default"]["token"][1:-1] #WE REMOVE THE QUOTES
 
 org = "FrigoQ"
 url = "http://localhost:8086"
-bucket="Frigo1"
+#bucket="Frigo1"
 print(token)
 db_client = influxdb_client.InfluxDBClient(url=url, token=token, org=org)
 
 write_api = db_client.write_api(write_options=SYNCHRONOUS)
 query_api = db_client.query_api()
+buckets_api = db_client.buckets_api()
 
 db = SQLAlchemy()
 
@@ -49,5 +50,8 @@ def create_app():
     #blueprint for the InfluxDB database
     from .influx import influx as influx_blueprint
     app.register_blueprint(influx_blueprint)
+
+    from .grafana import grafana as grafana_blueprint
+    app.register_blueprint(grafana_blueprint)
 
     return app

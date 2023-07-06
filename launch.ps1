@@ -1,5 +1,6 @@
 #docker container first
 docker container start FrigoDB
+docker container start grafana
 #FlaskServer
 #cd ServerSide
 start powershell {cd ServerSide; python FlaskServer.py}

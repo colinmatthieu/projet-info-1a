@@ -19,28 +19,28 @@ dashboard = Dashboard(
     ],
     timezone='browser',
     panels=[
-        # TimeSeries(
-        #     title="Random Walk",
-        #     dataSource='default',
-        #     maxDataPoints = 1000,
-        #     targets=[
-        #         InfluxDBTarget(
-        #             datasource='FrigoQ',
-        #             query=query
-        #         ),
-        #     ],
-        #     gridPos=GridPos(h=8, w=16, x=0, y=0)
-        # ),
-        Ae3ePlotly(
-           title = "Plotly Panel",
-           dataSource = "FrigoQ",
-           targets = [
+        TimeSeries(
+            title="Random Walk",
+            dataSource='default',
+            maxDataPoints = 1000,
+            targets=[
                 InfluxDBTarget(
                     datasource='FrigoQ',
                     query=query
                 ),
-           ]
-        )
+            ],
+            gridPos=GridPos(h=8, w=16, x=0, y=0)
+        ),
+        # Ae3ePlotly(
+        #    title = "Plotly Panel",
+        #    dataSource = "FrigoQ",
+        #    targets = [
+        #         InfluxDBTarget(
+        #             datasource='FrigoQ',
+        #             query=query
+        #         ),
+        #    ]
+        # )
     ]
 ).auto_panel_ids()
 

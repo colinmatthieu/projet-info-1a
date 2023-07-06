@@ -1,3 +1,7 @@
 08/03 : Premier contact avec Adrien Bocquet, explication des différents projets proposés, ajout d'un projet de log des températures des frigos des labos de l'ENS.
 
 13/04 : Visite des labos de Alice & Bob à l'ENS (Ulm Physique), visualisation des puces et des frigos qui les contrôlent, ainsi que de la machine sur laquelle le fridgewatcher actuel est implanté. Visualisation de son fonctionnement. Quelques explications sur des points de Rust que nous n'avions pas bien compris. Nous partons sur ce projet FridgeWatcher.
+
+13/06 : Réunion aux Mines avec Adrien. On lui montre le produit minimal qu'on a, avec l'envoi des données côté frigo en backend, la BDD InfluxDB qui les stocke, le serveur Web avec visualisation + authentification. Il nous montre la solution qu'ils ont actuellement, appelée Grafana. Il nous précise certaines fonctionnalités qu'il attend, en plus d'une interface côté frigo en utilisant Tauri.
+
+21/06 : Après beaucoup de discussions, nous partons sur une solution à base de Grafana, en essayant d'utiliser le plugin [Plotly](https://grafana.com/grafana/plugins/nline-plotlyjs-panel/) pour avoir les fonctionnalités voulues par Adrien (en particulier, pouvoir zoomer sur l'axe y) et en utilisant la librairie [grafanalib](https://github.com/weaveworks/grafanalib) pour créer des dashboards. Nous nous sommes en effet rendus compte que la plupart des fonctionnalités demandées par Adrien existaient sur Grafana, mais demandaient d'avoir accès à la création de dashboards (ce qui demande d'être admin).

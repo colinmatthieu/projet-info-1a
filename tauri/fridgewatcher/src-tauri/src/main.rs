@@ -17,7 +17,7 @@ fn greet(name: &str) -> String {
     format!("Hello, {}! You've been greeted from Rust!", name)
 }
 
-#[tokio::main]
+#[tauri::command]
 async fn start_logger() 
 {
     println!("In logger");
@@ -97,12 +97,6 @@ fn process(filePath:PathBuf)->Result<()>{
     Ok(())
 }
 
-#[tauri::command]
-fn start_tauri_logger() {
-    println!("In tauri logger");
-    //start_logger();
-}
-
 fn main() {
   let tray_menu = SystemTrayMenu::new(); // insert the menu items here
   tauri::Builder::default()
@@ -143,7 +137,7 @@ fn main() {
       }
       _ => {}
     })
-    .invoke_handler(tauri::generate_handler![greet, start_tauri_logger])
+    .invoke_handler(tauri::generate_handler![greet, start_logger])
     .run(tauri::generate_context!())
     .expect("error while running tauri application");
 }

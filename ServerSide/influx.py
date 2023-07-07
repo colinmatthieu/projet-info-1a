@@ -25,7 +25,7 @@ def processLine(line,path,bucket):
     local_dt = local.localize(date, is_dst=False)
     utc_dt = local_dt.astimezone(pytz.utc)
     #print(utc_dt)
-    THRESHOLD = 0.
+    THRESHOLD = 2.
     if "T" in field:
         if float(v) >= THRESHOLD:
             import requests

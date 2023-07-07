@@ -40,7 +40,7 @@ def deadmanAlert(sender,fridge,measure):
     print("Current time:",now)
     minutesSinceData = (now - d).total_seconds()/60
     print(minutesSinceData)
-    if minutesSinceData > 2:
+    if minutesSinceData > 0.5:
         import requests
         webhook = "https://hooks.slack.com/services/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"
         message = {"text": f"Deadman alert !\nHaven't received news from {sender} - {fridge} in {str(minutesSinceData)} minutes !"}
@@ -81,7 +81,7 @@ def create_app():
     app.register_blueprint(grafana_blueprint)
     
     scheduler = BackgroundScheduler()
-    scheduler.add_job(deadmanAlert, 'interval',["ensParis", "demo_T", "T0"], seconds=30)
+    scheduler.add_job(deadmanAlert, 'interval',["ensParis", "demo_T", "T0"], seconds=10)
     scheduler.start()
 
     return app

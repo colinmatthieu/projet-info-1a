@@ -1,0 +1,100 @@
+{
+    "datasource": {
+      "type": "influxdb",
+      "uid": "a0168bb4-edbb-43de-a6ed-70d5e2f59853"
+    },
+    "gridPos": {
+      "h": 12,
+      "w": 12,
+      "x": 0,
+      "y": 0
+    },
+    "id": 1,
+    "options": {
+      "yamlMode": true,
+      "resScale": 2,
+      "allData": {
+        "opacity": 0.8
+      },
+      "data": [
+        {
+          "hovertext": "Point from P0",
+          "line": {
+            "color": "rgb(255,0,0)"
+          },
+          "mode": "lines",
+          "type": "scatter"
+        },
+        {
+          "hovertext": "Point from P1",
+          "line": {
+            "color": "rgb(255,50,0)"
+          },
+          "mode": "lines",
+          "type": "scatter"
+        },
+        {
+          "hovertext": "Point from P2",
+          "line": {
+            "color": "rgb(255,100,0)"
+          },
+          "mode": "lines",
+          "type": "scatter"
+        },
+        {
+          "hovertext": "Point from P3",
+          "line": {
+            "color": "rgb(255,150,0)"
+          },
+          "mode": "lines",
+          "type": "scatter"
+        }
+      ],
+      "layout": {
+        "font": {
+          "family": "Inter, Helvetica, Arial, sans-serif",
+          "color": "white"
+        },
+        "paper_bgcolor": "rgb(25,27,31)",
+        "plot_bgcolor": "rgb(25,27,31)",
+        "hoverlabel": {
+          "bgcolor": "rgb(25,27,31)"
+        },
+        "margin": {
+          "t": 30,
+          "r": 30,
+          "b": 30,
+          "l": 30
+        },
+        "xaxis": {
+          "type": "date",
+          "autorange": true,
+          "automargin": true,
+          "gridcolor": "rgb(60,60,60)",
+          "rangeslider": "range[v.timeRangeStart, v.timeRangeStop]"
+        },
+        "yaxis": {
+          "automargin": true,
+          "autorange": true,
+          "fixedrange": false,
+          "gridcolor": "rgb(60,60,60)"
+        },
+        "uirevision": true
+      },
+      "config": {},
+      "script": "let x0 = data.series[0].fields[0].values;\nlet y0 = data.series[0].fields[1].values;\nlet x1 = data.series[1].fields[0].values;\nlet y1 = data.series[1].fields[1].values;\nlet x2 = data.series[2].fields[0].values;\nlet y2 = data.series[2].fields[1].values;\nlet x3 = data.series[3].fields[0].values;\nlet y3 = data.series[3].fields[1].values;\nlet trace1 = {\n  x: x0,\n  y: y0,\n  name: 'P0',\n  connectgaps: true\n};\nlet trace2 = {\n  x: x1,\n  y: y1,\n  name: 'P1',\n  connectgaps: true\n};\nlet trace3 = {\n  x: x2,\n  y: y2,\n  name: 'P2',\n  connectgaps: true\n};\nlet trace4 = {\n  x: x3,\n  y: y3,\n  name: 'P3',\n  connectgaps: true\n};\n\nreturn { data: [trace1, trace2, trace3, trace4] };",
+      "onclick": "// console.log(data);\n// window.updateVariables({query:{'var-project':'test'}, partial: true})"
+    },
+    "targets": [
+      {
+        "datasource": {
+          "type": "influxdb",
+          "uid": "a0168bb4-edbb-43de-a6ed-70d5e2f59853"
+        },
+        "query": "maxDataPoints = 100\r\n\r\nfrom(bucket: \"ensParis\")\r\n|>range(start: v.timeRangeStart, stop: v.timeRangeStop)\r\n|>filter(fn: (r) => r._measurement == \"demo_P\")\r\n\r\n|>aggregateWindow(fn: mean, every: $__interval)",
+        "refId": "A"
+      }
+    ],
+    "title": "Pressures (P)",
+    "type": "nline-plotlyjs-panel"
+  }

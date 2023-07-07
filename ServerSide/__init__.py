@@ -81,7 +81,7 @@ def create_app():
     app.register_blueprint(grafana_blueprint)
     
     scheduler = BackgroundScheduler()
-    scheduler.add_job(deadmanAlert, 'interval',["ensParis", "demo_T", "T0"], seconds=10)
+    scheduler.add_job(deadmanAlert, 'interval',["ensParis", "demo_T", "T0"], seconds=30)
     scheduler.start()
 
     return app

@@ -22,14 +22,14 @@
         "open": true,
         "sidecar": true,
         "scope": [
-          {"name": "logger/logger", "sidecar": true}
+          {"name": "../../../FridgeSide/target/x86_64-pc-windows-msvc/release/FridgeSide", "sidecar": true}
         ]
       }
     },
     "bundle": {
       "active": true,
       "targets": "all",
-      "identifier": "com.tauri.dev",
+      "identifier": "com.tauri.fridgewatcher-client",
       "icon": [
         "icons/32x32.png",
         "icons/128x128.png",
@@ -38,7 +38,7 @@
         "icons/icon.ico"
       ],
       "externalBin": [
-        "logger/logger"
+        "../../../FridgeSide/target/x86_64-pc-windows-msvc/release/FridgeSide"
       ]
     },
     "security": {

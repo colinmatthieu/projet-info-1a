@@ -14,11 +14,11 @@ def genDataLine_T(value,i,e):
     current_date = now.strftime("%d-%m-%y")
     contents.append(current_date)
     contents.append(current_time)
-    value = 0.01 + np.sin((value + 10*i)/10)*0.0025+ np.sin((value + 10*i)/14)*0.002 + 0.005 * i**2
+    value = 0.01 + np.sin((value + 10*i)/10)*0.0025+ np.sin((value + 10*i)/14)*0.002 + 0.005 * i**(1.2)
     value += 0.015 * value/20
     value += np.random.normal(0,0.0005,1)[0]
     if(i == 0):
-        value += np.exp(e)
+        value += np.exp(e/5)
     contents.append(str(value))
     return ",".join(contents)+"\n"
 
